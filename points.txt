@@ -1,0 +1,6 @@
+1. Run the loopcode.py
+-> python loopcode.py
+ 
+2. Verify the dataset was generated:
+-> python -c "import pandas as pd; df = pd.read_csv('all_features.csv'); print(f'Rows: {len(df)}, Columns: {df.columns.tolist()}')"
+

@@ -1,0 +1,24 @@
+                                   The properties extracte are 
+
+
+1.Length of finger calculation
+2.Length of palm
+3.Area of the triangle formed on the palm
+4.Length of the segments of fingers
+5.Distance between the lowest and highest point of the hand
+6.Distance between the lowest points of consecutive fingers 
+7.Perimter of the polygon formed on the palm with wrist and mcp of fingers as points
+8.Width of the wrist
+9.Area of the triangle formed on the hand with wrist extremeties and highest point
+10.Perimeter of the polygon enclosing the hand
+
+
+                                The features used for classification are 
+
+
+1.Length of each finger : length of longest finger F1
+2.Area of triangle formed on palm : (Diameter of the palm*width of the wrist) F2
+3.Length of palm:length of longest finger F3
+4.Perimeter of the polygon formed on the palm:perimeter of the triangle formed on the polygon F4
+5.Area of triangle formed on palm:Area of triangle formed on hand F5
+6.Length of the hand : width of the wrist F6

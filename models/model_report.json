@@ -1,0 +1,31 @@
+{
+  "dataset_rows": 1304,
+  "dataset_classes": 163,
+  "cv_results": {
+    "knn": {
+      "accuracy_mean": 0.8481727085175361,
+      "accuracy_std": 0.031125453703882148,
+      "f1_macro_mean": 0.8256324861232838,
+      "f1_macro_std": 0.029914312402219433
+    },
+    "svm_rbf": {
+      "accuracy_mean": 0.9179457707043914,
+      "accuracy_std": 0.01773583071051084,
+      "f1_macro_mean": 0.9067543090855974,
+      "f1_macro_std": 0.019652830962413187
+    },
+    "random_forest": {
+      "accuracy_mean": 0.9018390804597702,
+      "accuracy_std": 0.007124376581866346,
+      "f1_macro_mean": 0.8885130002921414,
+      "f1_macro_std": 0.005391521511874616
+    }
+  },
+  "best_model": "svm_rbf",
+  "holdout": {
+    "accuracy": 0.9233716475095786,
+    "f1_macro": 0.9044989775051125,
+    "f1_weighted": 0.9126436781609195,
+    "test_size": 261
+  }
+}
