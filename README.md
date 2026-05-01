@@ -131,3 +131,29 @@ Output:
 8. Limitations and Future Work (1 minute)
    - "Current setup assumes controlled hand pose and lighting."
    - "Future work: data augmentation, deep metric learning, and deployment as an API/web app."
+
+## Enrollment & Verification (new)
+
+Recommended naming convention: use a folder-per-person approach. Create an `enrollments/` directory and add one folder per person where the folder name is the canonical identifier you will use for that person (for example `enrollments/John_Doe/IMG_001.jpg`, `enrollments/John_Doe/IMG_002.jpg`). This keeps images grouped and avoids filename collisions.
+
+Why folder-per-person?
+
+- Cleanly groups images for each subject.
+- Allows arbitrary filenames inside the folder (camera-generated names, phone exports, etc.).
+- Easier to batch-enroll, delete, or inspect a single user's data.
+
+Quick workflow:
+
+- Enroll new person (copies images into `enrollments/<name>/` and appends features to `all_features.csv`):
+
+  `python enroll_person.py --name "John_Doe" --src path/to/images --retrain`
+
+- Verify a claimed identity for a probe image (uses model probabilities/decision scores):
+
+  `python verify_person.py --image probe.jpg --claim "John_Doe" --model models/finger_geometry_model.joblib --threshold 0.65`
+
+Notes:
+
+- `enroll_person.py` will by default append feature rows to `all_features.csv`. If you want the enrolled person to be recognized by the classifier, run with `--retrain` to call `train_and_evaluate.py` after enrollment (this retrains models including the new class).
+- `verify_person.py` accepts a `--threshold` (default 0.65) for the claim confidence. For models that expose `predict_proba` that probability is used; for SVMs without probability calibration a softmax of `decision_function` scores is used as a fallback. Thresholds should be tuned on validation data.
+- For a fast incremental system without retraining, consider using the `enrollments/` folder vectors and a nearest-neighbour distance check in feature space (we can add this mode if you want incremental authentication without retraining).
