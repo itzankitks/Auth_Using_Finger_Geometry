@@ -157,3 +157,22 @@ Notes:
 - `enroll_person.py` will by default append feature rows to `all_features.csv`. If you want the enrolled person to be recognized by the classifier, run with `--retrain` to call `train_and_evaluate.py` after enrollment (this retrains models including the new class).
 - `verify_person.py` accepts a `--threshold` (default 0.65) for the claim confidence. For models that expose `predict_proba` that probability is used; for SVMs without probability calibration a softmax of `decision_function` scores is used as a fallback. Thresholds should be tuned on validation data.
 - For a fast incremental system without retraining, consider using the `enrollments/` folder vectors and a nearest-neighbour distance check in feature space (we can add this mode if you want incremental authentication without retraining).
+
+**Flowchart**
+
+The following Mermaid diagram shows the end-to-end flow from image to prediction/verification:
+
+```mermaid
+graph LR
+   A[Load image (cv2.imread)] --> B[MediaPipe Hands: detect 21 landmarks]
+   B --> C[Convert normalized landmarks to pixel coordinates]
+   C --> D[Compute primitives: distances, perimeters, triangle areas]
+   D --> E[Compute scale-invariant features: aF1..eF1, F2..F6]
+   E --> F[Save row to all_features.csv (Label)]
+   F --> G[Train models: KNN, SVM(RBF), RandomForest]
+   G --> H[Select best model (CV macro-F1) and save artifact]
+   E --> I[Predict / Verify: load model, compute predict/predict_proba]
+   I --> J[Decision: accept/reject or return predicted label]
+```
+
+Place this diagram in the README for a quick visual summary of the pipeline.

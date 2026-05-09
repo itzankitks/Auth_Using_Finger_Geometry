@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 import csv
 
-from feature_extraction import extract_feature_vector
+from feature_extraction import extract_feature_vector, FEATURE_COLUMNS
 
 
 def is_image_file(p: Path):
@@ -73,13 +73,14 @@ def main():
         if not dst.exists():
             shutil.copy2(img, dst)
         fv = extract_feature_vector(str(dst))
-        # feature_extraction returns dict; append label column as 'label'
-        fv['label'] = name
-        rows.append(fv)
+        # feature_extraction returns dict; append label column as 'Label' (consistent with existing CSV)
+        row = {k: fv[k] for k in FEATURE_COLUMNS}
+        row['Label'] = name
+        rows.append(row)
 
     csv_path = Path(args.csv)
-    # Determine header ordering: feature keys then 'label'
-    header = list(rows[0].keys())
+    # Determine header ordering: FEATURE_COLUMNS then 'Label'
+    header = list(FEATURE_COLUMNS) + ['Label']
     append_rows_to_csv(csv_path, rows, header)
 
     print(f'Enrolled {len(rows)} images for "{name}" into {dest_dir}.')
