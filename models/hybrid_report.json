@@ -1,0 +1,14 @@
+{
+  "dataset_images": 1304,
+  "dataset_classes": 163,
+  "train_size": 1043,
+  "val_size": 261,
+  "best_epoch": 45,
+  "best_val_f1": 0.699649430324277,
+  "final_val_accuracy": 0.7509578544061303,
+  "final_val_macro_f1": 0.699649430324277,
+  "training_time_seconds": 1965.6294267177582,
+  "device": "cuda",
+  "model_params_total": 2410780,
+  "model_params_trainable": 1931228
+}
